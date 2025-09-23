@@ -1,0 +1,17 @@
+{
+	"name": "local_MySQL_PC",
+	"properties": {
+		"description": "source end in CopyActivity2",
+		"linkedServiceName": {
+			"referenceName": "localMySQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "`inventory`"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

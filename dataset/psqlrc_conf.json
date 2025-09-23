@@ -1,0 +1,20 @@
+{
+	"name": "psqlrc_conf",
+	"properties": {
+		"description": "source file in CopyActivity1",
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "psqlrc.conf",
+				"container": "blobforadf"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

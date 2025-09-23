@@ -1,0 +1,56 @@
+{
+	"name": "CopyActivity2_copy_table_inventory_from_local_MySQL_to_Azure MySQL",
+	"properties": {
+		"description": "copy all data from source table ‘inventory'",
+		"activities": [
+			{
+				"name": "copy_table_data",
+				"description": "table 'inventory'",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.1:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "AzureMySqlSink",
+						"writeBatchSize": 10000,
+						"writeBatchTimeout": "00:00:30"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "local_MySQL_PC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "mysql_flexible_server_test1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-09-16T07:19:47Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

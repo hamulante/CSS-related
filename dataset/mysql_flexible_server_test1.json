@@ -1,0 +1,17 @@
+{
+	"name": "mysql_flexible_server_test1",
+	"properties": {
+		"description": "mysql-flexible-server-test1.mysql.database.azure.com",
+		"linkedServiceName": {
+			"referenceName": "mysqlflexibleservertest1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureMySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "inventory"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
