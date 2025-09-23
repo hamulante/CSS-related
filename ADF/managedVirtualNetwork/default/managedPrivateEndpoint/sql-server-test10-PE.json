@@ -1,0 +1,10 @@
+{
+	"name": "sql-server-test10-PE",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.Sql/servers/sql-server-test10",
+		"groupId": "sqlServer",
+		"fqdns": [
+			"sql-server-test10.database.windows.net"
+		]
+	}
+}

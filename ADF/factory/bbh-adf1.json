@@ -1,0 +1,9 @@
+{
+	"name": "bbh-adf1",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a818affc-8ed6-4579-a745-d43a9f847620",
+		"tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3"
+	}
+}

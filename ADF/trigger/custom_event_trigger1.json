@@ -1,0 +1,31 @@
+{
+	"name": "custom_event_trigger1",
+	"properties": {
+		"description": "I will manually publish event in event grid using CLI\naz eventgrid event publish --topic-name custom-pipeline-trigger1 \\\n  --subject \"startPipeline\" \\\n  --event-type \"pipelineStart\" \\\n  --data '{\"message\": \"Trigger pipeline\"}' \\\n  --data-version \"1.0\"\n",
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "ControlFlow1_Use_ForEach_to_load_source_CSV_to_SQLDB_tables",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"file_list": [
+						"animals",
+						"movies"
+					]
+				}
+			}
+		],
+		"type": "CustomEventsTrigger",
+		"typeProperties": {
+			"subjectEndsWith": "",
+			"subjectBeginsWith": "startPipeline",
+			"scope": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.EventGrid/topics/custom-event-trigger1",
+			"events": [
+				"pipelineStart"
+			]
+		}
+	}
+}

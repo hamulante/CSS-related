@@ -1,0 +1,101 @@
+{
+	"name": "ControlFlow1_Use_ForEach_to_load_source_CSV_to_SQLDB_tables",
+	"properties": {
+		"description": "zhttps://www.youtube.com/watch?v=qMXp9Xnh8T8",
+		"activities": [
+			{
+				"name": "ForEach CSV in file_list",
+				"description": "animals.csv\nmovies.csv",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.file_list",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy CSV data to SQLDB tables",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ForEach_source_CSV",
+									"type": "DatasetReference",
+									"parameters": {
+										"file_name": {
+											"value": "@concat(item(),'.csv')",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "adf_sql_server_test10",
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"file_list": {
+				"type": "array",
+				"defaultValue": [
+					"animals",
+					"movies"
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-09-16T08:28:57Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

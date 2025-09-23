@@ -1,0 +1,7 @@
+{
+	"name": "AzureMySql680",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.DBforMySQL/flexibleServers/mysql-flexible-server-test1",
+		"groupId": "mysqlServer"
+	}
+}
