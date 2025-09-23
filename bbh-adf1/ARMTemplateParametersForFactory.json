@@ -1,0 +1,65 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "bbh-adf1"
+		},
+		"adf_sql_server_test10_password": {
+			"value": ""
+		},
+		"localMySQL_password": {
+			"value": ""
+		},
+		"mysqlflexibleservertest1_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage1_properties_typeProperties_serviceEndpoint": {
+			"value": "https://bbstorageaccountea.blob.core.windows.net/"
+		},
+		"adf_sql_server_test10_properties_typeProperties_server": {
+			"value": "sql-server-test10.database.windows.net"
+		},
+		"adf_sql_server_test10_properties_typeProperties_database": {
+			"value": "adf"
+		},
+		"adf_sql_server_test10_properties_typeProperties_userName": {
+			"value": "beibeihu"
+		},
+		"localMySQL_properties_typeProperties_server": {
+			"value": "localhost"
+		},
+		"localMySQL_properties_typeProperties_database": {
+			"value": "adf"
+		},
+		"localMySQL_properties_typeProperties_username": {
+			"value": "adf"
+		},
+		"custom_event_trigger1_properties_ControlFlow1_Use_ForEach_to_load_source_CSV_to_SQLDB_tables_parameters_file_list": {
+			"value": [
+				"animals",
+				"movies"
+			]
+		},
+		"custom_event_trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.EventGrid/topics/custom-event-trigger1"
+		},
+		"AzureMySql680_properties_privateLinkResourceId": {
+			"value": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.DBforMySQL/flexibleServers/mysql-flexible-server-test1"
+		},
+		"AzureMySql680_properties_groupId": {
+			"value": "mysqlServer"
+		},
+		"sql-server-test10-PE_properties_privateLinkResourceId": {
+			"value": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.Sql/servers/sql-server-test10"
+		},
+		"sql-server-test10-PE_properties_groupId": {
+			"value": "sqlServer"
+		},
+		"sql-server-test10-PE_properties_fqdns": {
+			"value": [
+				"sql-server-test10.database.windows.net"
+			]
+		}
+	}
+}

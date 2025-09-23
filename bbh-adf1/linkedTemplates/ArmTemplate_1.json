@@ -1,0 +1,142 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "bbh-adf1"
+		},
+		"custom_event_trigger1_properties_ControlFlow1_Use_ForEach_to_load_source_CSV_to_SQLDB_tables_parameters_file_list": {
+			"type": "array",
+			"defaultValue": [
+				"animals",
+				"movies"
+			]
+		},
+		"custom_event_trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.EventGrid/topics/custom-event-trigger1"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/local_MySQL_PC')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "source end in CopyActivity2",
+				"linkedServiceName": {
+					"referenceName": "localMySQL",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {
+					"tableName": "`inventory`"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyActivity2_copy_table_inventory_from_local_MySQL_to_Azure MySQL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "copy all data from source table ‘inventory'",
+				"activities": [
+					{
+						"name": "copy_table_data",
+						"description": "table 'inventory'",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.1:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "AzureMySqlSink",
+								"writeBatchSize": 10000,
+								"writeBatchTimeout": "00:00:30"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "local_MySQL_PC",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "mysql_flexible_server_test1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-09-16T07:19:47Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/local_MySQL_PC')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/custom_event_trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "I will manually publish event in event grid using CLI\naz eventgrid event publish --topic-name custom-pipeline-trigger1 \\\n  --subject \"startPipeline\" \\\n  --event-type \"pipelineStart\" \\\n  --data '{\"message\": \"Trigger pipeline\"}' \\\n  --data-version \"1.0\"\n",
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "ControlFlow1_Use_ForEach_to_load_source_CSV_to_SQLDB_tables",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"file_list": "[parameters('custom_event_trigger1_properties_ControlFlow1_Use_ForEach_to_load_source_CSV_to_SQLDB_tables_parameters_file_list')]"
+						}
+					}
+				],
+				"type": "CustomEventsTrigger",
+				"typeProperties": {
+					"subjectEndsWith": "",
+					"subjectBeginsWith": "startPipeline",
+					"scope": "[parameters('custom_event_trigger1_properties_typeProperties_scope')]",
+					"events": [
+						"pipelineStart"
+					]
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

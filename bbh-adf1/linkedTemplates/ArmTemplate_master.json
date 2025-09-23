@@ -1,0 +1,186 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "bbh-adf1"
+		},
+		"adf_sql_server_test10_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'adf_sql_server_test10'"
+		},
+		"localMySQL_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'localMySQL'"
+		},
+		"mysqlflexibleservertest1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'mysqlflexibleservertest1'"
+		},
+		"AzureBlobStorage1_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://bbstorageaccountea.blob.core.windows.net/"
+		},
+		"adf_sql_server_test10_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sql-server-test10.database.windows.net"
+		},
+		"adf_sql_server_test10_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "adf"
+		},
+		"adf_sql_server_test10_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "beibeihu"
+		},
+		"localMySQL_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost"
+		},
+		"localMySQL_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "adf"
+		},
+		"localMySQL_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "adf"
+		},
+		"custom_event_trigger1_properties_ControlFlow1_Use_ForEach_to_load_source_CSV_to_SQLDB_tables_parameters_file_list": {
+			"type": "array",
+			"defaultValue": [
+				"animals",
+				"movies"
+			]
+		},
+		"custom_event_trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.EventGrid/topics/custom-event-trigger1"
+		},
+		"AzureMySql680_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.DBforMySQL/flexibleServers/mysql-flexible-server-test1"
+		},
+		"AzureMySql680_properties_groupId": {
+			"type": "string",
+			"defaultValue": "mysqlServer"
+		},
+		"sql-server-test10-PE_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/aa56909b-7f07-48b6-85fd-3bf928527a27/resourceGroups/test-for-lab/providers/Microsoft.Sql/servers/sql-server-test10"
+		},
+		"sql-server-test10-PE_properties_groupId": {
+			"type": "string",
+			"defaultValue": "sqlServer"
+		},
+		"sql-server-test10-PE_properties_fqdns": {
+			"type": "array",
+			"defaultValue": [
+				"sql-server-test10.database.windows.net"
+			]
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "bbh-adf1_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"adf_sql_server_test10_password": {
+						"value": "[parameters('adf_sql_server_test10_password')]"
+					},
+					"mysqlflexibleservertest1_connectionString": {
+						"value": "[parameters('mysqlflexibleservertest1_connectionString')]"
+					},
+					"localMySQL_password": {
+						"value": "[parameters('localMySQL_password')]"
+					},
+					"AzureBlobStorage1_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('AzureBlobStorage1_properties_typeProperties_serviceEndpoint')]"
+					},
+					"adf_sql_server_test10_properties_typeProperties_server": {
+						"value": "[parameters('adf_sql_server_test10_properties_typeProperties_server')]"
+					},
+					"adf_sql_server_test10_properties_typeProperties_database": {
+						"value": "[parameters('adf_sql_server_test10_properties_typeProperties_database')]"
+					},
+					"adf_sql_server_test10_properties_typeProperties_userName": {
+						"value": "[parameters('adf_sql_server_test10_properties_typeProperties_userName')]"
+					},
+					"localMySQL_properties_typeProperties_server": {
+						"value": "[parameters('localMySQL_properties_typeProperties_server')]"
+					},
+					"localMySQL_properties_typeProperties_database": {
+						"value": "[parameters('localMySQL_properties_typeProperties_database')]"
+					},
+					"localMySQL_properties_typeProperties_username": {
+						"value": "[parameters('localMySQL_properties_typeProperties_username')]"
+					},
+					"AzureMySql680_properties_privateLinkResourceId": {
+						"value": "[parameters('AzureMySql680_properties_privateLinkResourceId')]"
+					},
+					"AzureMySql680_properties_groupId": {
+						"value": "[parameters('AzureMySql680_properties_groupId')]"
+					},
+					"sql-server-test10-PE_properties_privateLinkResourceId": {
+						"value": "[parameters('sql-server-test10-PE_properties_privateLinkResourceId')]"
+					},
+					"sql-server-test10-PE_properties_groupId": {
+						"value": "[parameters('sql-server-test10-PE_properties_groupId')]"
+					},
+					"sql-server-test10-PE_properties_fqdns": {
+						"value": "[parameters('sql-server-test10-PE_properties_fqdns')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "bbh-adf1_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"custom_event_trigger1_properties_ControlFlow1_Use_ForEach_to_load_source_CSV_to_SQLDB_tables_parameters_file_list": {
+						"value": "[parameters('custom_event_trigger1_properties_ControlFlow1_Use_ForEach_to_load_source_CSV_to_SQLDB_tables_parameters_file_list')]"
+					},
+					"custom_event_trigger1_properties_typeProperties_scope": {
+						"value": "[parameters('custom_event_trigger1_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'bbh-adf1_ArmTemplate_0')]"
+			]
+		}
+	]
+}
