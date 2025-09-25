@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'adf_sql_server_test10'"
 		},
+		"bbhbatch1_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'bbhbatch1'"
+		},
 		"localMySQL_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'localMySQL'"
@@ -34,6 +38,18 @@
 		"adf_sql_server_test10_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "beibeihu"
+		},
+		"bbhbatch1_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://bbhbatch1.eastus.batch.azure.com"
+		},
+		"bbhbatch1_properties_typeProperties_poolName": {
+			"type": "string",
+			"defaultValue": "adf-test"
+		},
+		"bbhbatch1_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "bbhbatch1"
 		},
 		"localMySQL_properties_typeProperties_server": {
 			"type": "string",
@@ -113,6 +129,9 @@
 					"mysqlflexibleservertest1_connectionString": {
 						"value": "[parameters('mysqlflexibleservertest1_connectionString')]"
 					},
+					"bbhbatch1_accessKey": {
+						"value": "[parameters('bbhbatch1_accessKey')]"
+					},
 					"localMySQL_password": {
 						"value": "[parameters('localMySQL_password')]"
 					},
@@ -127,6 +146,15 @@
 					},
 					"adf_sql_server_test10_properties_typeProperties_userName": {
 						"value": "[parameters('adf_sql_server_test10_properties_typeProperties_userName')]"
+					},
+					"bbhbatch1_properties_typeProperties_batchUri": {
+						"value": "[parameters('bbhbatch1_properties_typeProperties_batchUri')]"
+					},
+					"bbhbatch1_properties_typeProperties_poolName": {
+						"value": "[parameters('bbhbatch1_properties_typeProperties_poolName')]"
+					},
+					"bbhbatch1_properties_typeProperties_accountName": {
+						"value": "[parameters('bbhbatch1_properties_typeProperties_accountName')]"
 					},
 					"localMySQL_properties_typeProperties_server": {
 						"value": "[parameters('localMySQL_properties_typeProperties_server')]"

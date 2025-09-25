@@ -8,6 +8,9 @@
 		"adf_sql_server_test10_password": {
 			"value": ""
 		},
+		"bbhbatch1_accessKey": {
+			"value": ""
+		},
 		"localMySQL_password": {
 			"value": ""
 		},
@@ -25,6 +28,15 @@
 		},
 		"adf_sql_server_test10_properties_typeProperties_userName": {
 			"value": "beibeihu"
+		},
+		"bbhbatch1_properties_typeProperties_batchUri": {
+			"value": "https://bbhbatch1.eastus.batch.azure.com"
+		},
+		"bbhbatch1_properties_typeProperties_poolName": {
+			"value": "adf-test"
+		},
+		"bbhbatch1_properties_typeProperties_accountName": {
+			"value": "bbhbatch1"
 		},
 		"localMySQL_properties_typeProperties_server": {
 			"value": "localhost"

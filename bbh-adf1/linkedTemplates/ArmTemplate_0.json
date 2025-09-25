@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'mysqlflexibleservertest1'"
 		},
+		"bbhbatch1_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'bbhbatch1'"
+		},
 		"localMySQL_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'localMySQL'"
@@ -34,6 +38,18 @@
 		"adf_sql_server_test10_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "beibeihu"
+		},
+		"bbhbatch1_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://bbhbatch1.eastus.batch.azure.com"
+		},
+		"bbhbatch1_properties_typeProperties_poolName": {
+			"type": "string",
+			"defaultValue": "adf-test"
+		},
+		"bbhbatch1_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "bbhbatch1"
 		},
 		"localMySQL_properties_typeProperties_server": {
 			"type": "string",
@@ -74,29 +90,6 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/CICDDemo')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Wait",
-						"type": "Wait",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"waitTimeInSeconds": 1
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -363,6 +356,32 @@
 						"type": "AzureBlobStorageLocation",
 						"fileName": "testcopy.txt",
 						"container": "blobforadf"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/bbhbatch1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "bbhbatch1.eastus.batch.azure.com",
+				"annotations": [],
+				"type": "AzureBatch",
+				"typeProperties": {
+					"batchUri": "[parameters('bbhbatch1_properties_typeProperties_batchUri')]",
+					"poolName": "[parameters('bbhbatch1_properties_typeProperties_poolName')]",
+					"accountName": "[parameters('bbhbatch1_properties_typeProperties_accountName')]",
+					"linkedServiceName": {
+						"referenceName": "AzureBlobStorage1",
+						"type": "LinkedServiceReference"
+					},
+					"accessKey": {
+						"type": "SecureString",
+						"value": "[parameters('bbhbatch1_accessKey')]"
 					}
 				}
 			},
